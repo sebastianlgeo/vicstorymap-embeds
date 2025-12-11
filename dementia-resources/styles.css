@@ -37,7 +37,7 @@ body {
 .resource-image-wrapper {
   width: 100%;
   max-width: 420px;
-  height: 460px;                 /* controls overall image height */
+  height: 400px;                 /* controls overall image height */
   margin: 0 auto;
   display: flex;
   align-items: center;
