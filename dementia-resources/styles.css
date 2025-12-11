@@ -1,0 +1,180 @@
+/* Basic page styling */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #ffffff;
+  color: #333;
+}
+
+.page {
+  position: relative;      /* lets us pin the button in the corner */
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 24px 80px;    /* extra bottom padding so the button has room */
+}
+
+/* Layout for the row */
+.resources-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+/* Two main resource blocks */
+.resource {
+  flex: 1 1 0;
+  text-align: center;
+}
+
+.resource h2 {
+  font-size: 1.6rem;
+  color: #c04329;
+  margin-bottom: 18px;
+}
+
+/* Image area: makes heights consistent without distorting */
+.resource-image-wrapper {
+  width: 100%;
+  max-width: 420px;
+  height: 460px;                 /* controls overall image height */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.resource img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+  cursor: pointer;               /* hint that image is clickable */
+}
+
+/* Link text under each image */
+.resource-link {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 12px;
+  word-break: break-all;
+}
+
+/* Circle button pinned lower right */
+.learn-more-wrapper {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+.learn-more-button {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #c04329;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+.learn-more-button:hover {
+  filter: brightness(1.08);
+}
+
+/* Shared overlay base */
+.modal-overlay,
+.image-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay.visible,
+.image-modal-overlay.visible {
+  display: flex;
+}
+
+/* Text modal box */
+.modal {
+  background: #ffffff;
+  max-width: 520px;
+  width: 90%;
+  padding: 24px 28px 22px;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.modal h3 {
+  margin-top: 0;
+  color: #c04329;
+}
+
+/* Image modal box */
+.image-modal {
+  background: #ffffff;
+  max-width: 900px;
+  width: 95%;
+  max-height: 90vh;
+  padding: 18px 22px 20px;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-modal img {
+  max-width: 100%;
+  max-height: 82vh;
+  display: block;
+}
+
+/* Close buttons */
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+/* Stack on small screens */
+@media (max-width: 900px) {
+  .resources-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .resource {
+    max-width: 600px;
+  }
+
+  .learn-more-wrapper {
+    position: static;
+    margin: 24px auto 0;
+  }
+}
