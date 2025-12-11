@@ -37,7 +37,7 @@ body {
 .resource-image-wrapper {
   width: 100%;
   max-width: 420px;
-  height: 400px;                 /* controls overall image height */
+  height: 460px;                 /* controls overall image height */
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@ body {
   word-break: break-all;
 }
 
-/* Circle button pinned lower right */
+/* Circle button pinned lower right
 .learn-more-wrapper {
   position: absolute;
   bottom: 8px;
@@ -85,11 +85,11 @@ body {
   line-height: 1.4;
   padding: 10px;
   font-size: 0.9rem;
-}
+} */
 
-.learn-more-button:hover {
+/* .learn-more-button:hover {
   filter: brightness(1.08);
-}
+} */
 
 /* Shared overlay base */
 .modal-overlay,
