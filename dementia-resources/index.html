@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Dementia Resources</title>
-  <link rel="stylesheet" href="styles.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
 
 <div class="page">
-
   <section class="resources-row">
     <!-- Left resource -->
     <article class="resource">
       <h2>The Canadian Charter of Human Rights for People with Dementia</h2>
 
       <div class="resource-image-wrapper">
-        <!-- Image opens in popup -->
         <img
           src="images/charter.jpg"
           alt="Canadian Charter of Rights for People with Dementia"
           class="zoom-image"
-        >
+        />
       </div>
 
       <p class="resource-link">
@@ -38,7 +36,7 @@
           src="images/risk-factors.jpg"
           alt="Infographic showing modifiable risk factors for dementia"
           class="zoom-image"
-        >
+        />
       </div>
 
       <p class="resource-link">
@@ -46,8 +44,7 @@
       </p>
     </article>
   </section>
-
-</div>  <!-- end .page -->
+</div> <!-- end .page -->
 
 <!-- Image modal overlay -->
 <div class="image-modal-overlay" id="imageModal">
@@ -64,41 +61,53 @@
     </div>
 
     <div class="image-modal-inner">
-      <img id="imageModalImg" src="" alt="">
+      <img id="imageModalImg" src="" alt="" />
     </div>
   </div>
 </div>
 
 <script>
-  // Image modal
-  const imageModal = document.getElementById('imageModal');
-  const imageModalImg = document.getElementById('imageModalImg');
-  const closeImageBtn = document.getElementById('closeImageModalBtn');
-  const zoomImages = document.querySelectorAll('.zoom-image');
+  // ------- Image modal setup -------
 
-  const zoomInBtn = document.getElementById('zoomInBtn');
-  const zoomOutBtn = document.getElementById('zoomOutBtn');
+  const imageModal      = document.getElementById('imageModal');
+  const imageModalImg   = document.getElementById('imageModalImg');
+  const closeImageBtn   = document.getElementById('closeImageModalBtn');
+  const zoomImages      = document.querySelectorAll('.zoom-image');
+  const imageModalInner = document.querySelector('.image-modal-inner');
+
+  const zoomInBtn    = document.getElementById('zoomInBtn');
+  const zoomOutBtn   = document.getElementById('zoomOutBtn');
   const resetZoomBtn = document.getElementById('resetZoomBtn');
 
-  let currentScale = 1;
-  const minScale = 1;
+  let currentScale = 0.3;
+  const minScale = .5;
   const maxScale = 3;
-  const step = 0.25;
+  const step     = 0.25;
 
   function applyZoom() {
     imageModalImg.style.transform = `scale(${currentScale})`;
+
+    // only allow scrolling when zoomed in
+    if (currentScale <= 1){
+      imageModalInner.style.overflow = 'hidden';
+      imageModalInner.scrollTop = 0;
+      imageModalInner.scrollLeft = 0;
+    } else {
+      imageModalInner.style.overflow = 'auto';
+    }
   }
 
   // open modal when clicking any image
   zoomImages.forEach(img => {
-    img.addEventListener('click', () => {
-      imageModalImg.src = img.src;
-      imageModalImg.alt = img.alt;
-      currentScale = 1;
-      applyZoom();
-      imageModal.classList.add('visible');
-    });
+  img.addEventListener('click', () => {
+    imageModalImg.src = img.src;
+    imageModalImg.alt = img.alt;
+    currentScale = 0.8;   // match the starting scale
+    applyZoom();
+    imageModal.classList.add('visible');
   });
+});
+
 
   // close modal with X
   closeImageBtn.addEventListener('click', () => {
