@@ -47,92 +47,90 @@
     </article>
   </section>
 
-  <!-- Circle button in lower-right corner -->
-  <!-- <div class="learn-more-wrapper">
-    <button class="learn-more-button" id="openModalBtn">
-      <span>Learn More<br>Here</span>
-    </button>
-  </div>
-
-</div> -->
-
-<!-- Text modal overlay -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <button class="modal-close" id="closeModalBtn" aria-label="Close popup">
-      ×
-    </button>
-    <h3>More about these resources</h3>
-    <p>
-      Use this popup to briefly explain why these resources matter or what
-      you want the reader to do next.
-    </p>
-    <ul>
-      <li>Highlight key rights from the Charter.</li>
-      <li>Summarize main modifiable risk factors.</li>
-      <li>Add any next steps, like talking to a provider.</li>
-    </ul>
-  </div>
-</div>
+</div>  <!-- end .page -->
 
 <!-- Image modal overlay -->
 <div class="image-modal-overlay" id="imageModal">
   <div class="image-modal">
-    <button class="modal-close" id="closeImageModalBtn" aria-label="Close image popup">
-      ×
-    </button>
-    <img id="imageModalImg" src="" alt="">
+    <div class="image-modal-header">
+      <div class="zoom-controls">
+        <button id="zoomOutBtn" aria-label="Zoom out">−</button>
+        <button id="zoomInBtn" aria-label="Zoom in">+</button>
+        <button id="resetZoomBtn" aria-label="Reset zoom">Reset</button>
+      </div>
+      <button class="modal-close" id="closeImageModalBtn" aria-label="Close image popup">
+        ×
+      </button>
+    </div>
+
+    <div class="image-modal-inner">
+      <img id="imageModalImg" src="" alt="">
+    </div>
   </div>
 </div>
 
 <script>
-  // Text modal
-  const openBtn = document.getElementById('openModalBtn');
-  const closeBtn = document.getElementById('closeModalBtn');
-  const overlay = document.getElementById('modalOverlay');
-
-  openBtn.addEventListener('click', () => {
-    overlay.classList.add('visible');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    overlay.classList.remove('visible');
-  });
-
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-      overlay.classList.remove('visible');
-    }
-  });
-
   // Image modal
   const imageModal = document.getElementById('imageModal');
   const imageModalImg = document.getElementById('imageModalImg');
   const closeImageBtn = document.getElementById('closeImageModalBtn');
   const zoomImages = document.querySelectorAll('.zoom-image');
 
+  const zoomInBtn = document.getElementById('zoomInBtn');
+  const zoomOutBtn = document.getElementById('zoomOutBtn');
+  const resetZoomBtn = document.getElementById('resetZoomBtn');
+
+  let currentScale = 1;
+  const minScale = 1;
+  const maxScale = 3;
+  const step = 0.25;
+
+  function applyZoom() {
+    imageModalImg.style.transform = `scale(${currentScale})`;
+  }
+
+  // open modal when clicking any image
   zoomImages.forEach(img => {
     img.addEventListener('click', () => {
       imageModalImg.src = img.src;
       imageModalImg.alt = img.alt;
+      currentScale = 1;
+      applyZoom();
       imageModal.classList.add('visible');
     });
   });
 
+  // close modal with X
   closeImageBtn.addEventListener('click', () => {
     imageModal.classList.remove('visible');
   });
 
+  // close when clicking gray background
   imageModal.addEventListener('click', (e) => {
     if (e.target === imageModal) {
       imageModal.classList.remove('visible');
     }
   });
 
-  // Close any open modal with Esc
+  // zoom controls
+  zoomInBtn.addEventListener('click', () => {
+    currentScale = Math.min(maxScale, currentScale + step);
+    applyZoom();
+  });
+
+  zoomOutBtn.addEventListener('click', () => {
+    currentScale = Math.max(minScale, currentScale - step);
+    applyZoom();
+  });
+
+  resetZoomBtn.addEventListener('click', () => {
+    currentScale = 1;
+    applyZoom();
+  });
+
+  // close modal with Esc
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      overlay.classList.remove('visible');
       imageModal.classList.remove('visible');
     }
   });
